@@ -1,0 +1,31 @@
+import requests
+
+api_key = 'acd43e4d51de9a568bde2b2b0f1af64c'
+
+user_input = input("Enter city: ")
+
+weather_data = requests.get(
+    f"https://api.openweathermap.org/data/2.5/weather?q={user_input}&units=imperial&APPID={api_key}")
+
+if weather_data.json()['cod'] == '404':
+    print("No City Found")
+else:
+    wthr = weather_data.json()['weather'][0]['main']
+    tempp = round(weather_data.json()['main']['temp'])
+    wind = round(weather_data.json()['wind']['speed'])
+    humi = round(weather_data.json()['main']['humidity'])
+    vis = round(weather_data.json()['visibility'])
+    pressuree = round(weather_data.json()['main']['pressure'])
+    min_tempp = round(weather_data.json()['main']['temp_min'])
+    max_tempp = round(weather_data.json()['main']['temp_max'])
+
+    print(f"The weather in {user_input} is: {wthr}")
+    print(f"The temperature in {user_input} is: {tempp}F")
+    print(f"The wind speed in {user_input} is: {wind}km/hr")
+    print(f"The humidity in {user_input} is: {humi}%")
+    print(f"The visibility in {user_input} is: {vis}m")
+    print(f"The pressure in {user_input} is: {pressuree}Pa")
+    print(f"The min_temp in {user_input} is: {min_tempp}C")
+    print(f"The max_temp in {user_input} is: {max_tempp}C")
+
+
